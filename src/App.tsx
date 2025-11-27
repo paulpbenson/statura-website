@@ -3,7 +3,7 @@ import {
   CheckCircle, Brain, Database, Scale, Map as MapIcon, 
   ArrowRight, Shield, ChevronRight, ChevronDown,
   Menu, X, Activity, Home, Layers, Search, Bell,
-  Zap, Lock, Cpu, FileCheck, Globe
+  Zap, Lock, Cpu, FileCheck
 } from 'lucide-react';
 
 // --- BRAND IDENTITY ---
