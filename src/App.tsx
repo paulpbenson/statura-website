@@ -3,7 +3,7 @@ import {
   CheckCircle, Brain, Database, Scale, Map as MapIcon, 
   ArrowRight, Shield, ChevronRight, ChevronDown,
   Menu, X, Activity, Home, Layers, Search, Bell,
-  Zap, Lock, Cpu, FileCheck
+  Zap, Lock, Cpu, FileCheck, Globe
 } from 'lucide-react';
 
 // --- BRAND IDENTITY ---
@@ -15,10 +15,11 @@ const COLORS = {
   bg: '#F8FAFC'
 };
 
-// --- SYNTHETIC SCREENSHOTS ---
+// --- SYNTHETIC SCREENSHOTS (ANZ GENERALISED) ---
 
 const WorkspaceMockup = () => (
   <div className="w-full rounded-xl overflow-hidden shadow-2xl border border-slate-200 bg-white select-none">
+    {/* Header */}
     <div className="h-8 bg-slate-900 flex items-center px-4 gap-2">
       <div className="flex gap-1.5 opacity-50">
         <div className="w-2.5 h-2.5 rounded-full bg-slate-400"></div>
@@ -26,11 +27,12 @@ const WorkspaceMockup = () => (
         <div className="w-2.5 h-2.5 rounded-full bg-slate-400"></div>
       </div>
       <div className="ml-4 h-5 w-64 bg-slate-800 rounded text-[10px] text-slate-400 flex items-center px-2 font-mono">
-        statura.app/assess/APP-2025-849
+        statura.app/assess/DA-2025-849
       </div>
     </div>
     
     <div className="flex h-[400px]">
+      {/* Sidebar */}
       <div className="w-12 bg-[#7B8C7D] flex flex-col items-center py-4 gap-4 border-r border-slate-800/10">
         <div className="w-8 h-8 rounded bg-white/20"></div>
         <div className="w-6 h-0.5 bg-white/30"></div>
@@ -40,6 +42,7 @@ const WorkspaceMockup = () => (
       </div>
 
       <div className="flex-1 flex bg-slate-50">
+        {/* Left: Document */}
         <div className="flex-1 p-4 border-r border-slate-200 flex flex-col">
           <div className="bg-white h-full shadow-sm border border-slate-200 rounded p-6 relative overflow-hidden">
              <div className="absolute top-0 right-0 p-2">
@@ -55,16 +58,17 @@ const WorkspaceMockup = () => (
                 <MapIcon className="text-slate-300 w-12 h-12" />
                 <div className="absolute top-4 left-4 right-4 bottom-4 bg-[#96A998]/20 border border-[#96A998] rounded flex items-center justify-center">
                   <span className="bg-[#96A998] text-white text-[10px] font-bold px-2 py-1 rounded shadow-sm">
-                    Zone: GRZ1 (Detected)
+                    Zone: Residential (Detected)
                   </span>
                 </div>
              </div>
           </div>
         </div>
 
+        {/* Right: Checklist */}
         <div className="w-72 bg-white border-l border-slate-200 p-4 flex flex-col">
           <div className="mb-4">
-            <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">ResCode Assessment</h4>
+            <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Planning Controls</h4>
             <div className="h-1 w-full bg-slate-100 rounded overflow-hidden">
               <div className="h-full w-2/3 bg-[#96A998]"></div>
             </div>
@@ -73,11 +77,11 @@ const WorkspaceMockup = () => (
           <div className="space-y-3">
              <div className="p-3 rounded border border-green-200 bg-green-50">
                <div className="flex justify-between items-start mb-1">
-                 <span className="text-sm font-bold text-slate-700">A1 Street Setback</span>
+                 <span className="text-sm font-bold text-slate-700">Street Setback</span>
                  <CheckCircle className="w-4 h-4 text-green-600" />
                </div>
                <div className="text-[10px] text-green-800">
-                 Required: 6.0m <br/>
+                 Control: 6.0m <br/>
                  Proposed: 6.2m <br/>
                  <span className="font-bold">Status: Compliant</span>
                </div>
@@ -85,7 +89,7 @@ const WorkspaceMockup = () => (
 
              <div className="p-3 rounded border border-slate-200 bg-white">
                <div className="flex justify-between items-start mb-1">
-                 <span className="text-sm font-bold text-slate-700">A3 Site Coverage</span>
+                 <span className="text-sm font-bold text-slate-700">Site Coverage</span>
                  <div className="w-4 h-4 rounded-full border-2 border-slate-300"></div>
                </div>
                <div className="text-[10px] text-slate-500">
@@ -99,7 +103,7 @@ const WorkspaceMockup = () => (
                   <span className="text-xs font-bold">Statura Copilot</span>
                 </div>
                 <p className="text-[10px] text-slate-300 leading-snug">
-                  I've detected a Front Fence &gt;1.5m. This triggers a Regulation 42 assessment.
+                  Front Fence height &gt;1.5m. This triggers a heritage variation assessment.
                 </p>
              </div>
           </div>
@@ -143,7 +147,7 @@ const DashboardMockup = () => (
                 <span className="text-[10px] bg-slate-100 px-1 rounded text-slate-600">Day 14</span>
                 <Activity className="w-3 h-3 text-[#96A998]" />
              </div>
-             <div className="text-xs font-bold text-slate-800 mb-1">42 Wallaby Way</div>
+             <div className="text-xs font-bold text-slate-800 mb-1">108 High Street</div>
              <div className="text-[10px] text-slate-500">Waiting on RFI Response</div>
           </div>
           <div className="bg-white p-3 rounded shadow-sm border border-slate-200 opacity-60">
@@ -159,7 +163,7 @@ const DashboardMockup = () => (
           <div className="bg-white p-3 rounded shadow-sm border border-slate-200">
              <div className="flex gap-1 mb-2">
                <CheckCircle className="w-3 h-3 text-green-600" />
-               <span className="text-[10px] text-green-700 font-bold">Permit Granted</span>
+               <span className="text-[10px] text-green-700 font-bold">Approved</span>
              </div>
              <div className="h-3 w-3/4 bg-slate-800 rounded"></div>
           </div>
@@ -348,12 +352,12 @@ export default function App() {
             </div>
           </header>
 
-          {/* ECOSYSTEM FIT (Replaces fake Case Studies) */}
+          {/* ECOSYSTEM FIT (ANZ Standard) */}
           <section className="border-y border-slate-200 bg-white py-12 overflow-hidden">
              <div className="max-w-7xl mx-auto px-6 text-center">
-               <p className="text-xs font-bold text-[#64748B] uppercase tracking-widest mb-8">Built for the Victorian Planning System</p>
+               <p className="text-xs font-bold text-[#64748B] uppercase tracking-widest mb-8">Built for the Australian & NZ Planning Systems</p>
                <div className="flex flex-wrap justify-center items-center gap-12 md:gap-20 opacity-60">
-                 <span className="font-serif text-xl font-bold text-slate-400">ResCode Compliant</span>
+                 <span className="font-serif text-xl font-bold text-slate-400">Legislative Compliance</span>
                  <span className="font-serif text-xl font-bold text-slate-400">Compatible with Pathway</span>
                  <span className="font-serif text-xl font-bold text-slate-400">TechnologyOne Ready</span>
                  <span className="font-serif text-xl font-bold text-slate-400">Objective Trapeze</span>
@@ -399,7 +403,7 @@ export default function App() {
                 <div>
                    <h2 className="font-serif text-4xl mb-6">Built for Efficiency. <br/>Engineered for Compliance.</h2>
                    <p className="text-slate-300 text-lg mb-8">
-                     Statura is a capacity multiplier. By automating routine ResCode checks, we empower Councils to clear the backlog and focus senior planners on high-value assessments.
+                     Statura is a capacity multiplier. By automating routine numeric and compliance checks, we empower Councils to clear the backlog and focus senior planners on high-value assessments.
                    </p>
                    <Button variant="outline" className="text-white border-white hover:bg-white/10" onClick={() => window.location.href = 'mailto:sales@statura.com.au'}>
                      Request Capability Statement
@@ -414,7 +418,7 @@ export default function App() {
                    <div className="bg-white/5 p-6 rounded-xl border border-white/10 backdrop-blur-sm">
                       <Zap className="w-8 h-8 text-[#96A998] mb-4" />
                       <div className="text-xl font-bold mb-2">Instant Drafting</div>
-                      <div className="text-sm text-slate-400">Generates RFIs and Delegate Reports based on checklist status.</div>
+                      <div className="text-sm text-slate-400">Generates RFIs and Officer Reports based on checklist status.</div>
                    </div>
                    <div className="bg-white/5 p-6 rounded-xl border border-white/10 backdrop-blur-sm col-span-2">
                       <div className="flex items-center gap-3 mb-2">
@@ -441,12 +445,12 @@ export default function App() {
                 <div className="p-8 rounded-xl border border-slate-200 bg-slate-50 hover:shadow-lg transition-shadow">
                   <Scale className="w-10 h-10 text-[#96A998] mb-6" />
                   <h3 className="font-serif text-2xl text-[#1E293B] mb-3">Legislative Brain</h3>
-                  <p className="text-[#64748B]">Deterministic rules for numeric standards (ResCode). Zero hallucination. If the setback is 4m, Statura knows it's 4m.</p>
+                  <p className="text-[#64748B]">Deterministic rules for numeric standards (e.g. Setbacks, Height). Zero hallucination. If the control is 4m, Statura knows it's 4m.</p>
                 </div>
                 <div className="p-8 rounded-xl border border-slate-200 bg-slate-50 hover:shadow-lg transition-shadow">
                   <Database className="w-10 h-10 text-[#96A998] mb-6" />
                   <h3 className="font-serif text-2xl text-[#1E293B] mb-3">Archive Brain</h3>
-                  <p className="text-[#64748B]">Vector database retrieval of relevant VCAT precedents and past council decisions to ensure consistency.</p>
+                  <p className="text-[#64748B]">Vector database retrieval of relevant Tribunal/Court precedents and past council decisions to ensure consistency.</p>
                 </div>
                 <div className="p-8 rounded-xl border border-slate-200 bg-slate-50 hover:shadow-lg transition-shadow">
                   <Brain className="w-10 h-10 text-[#96A998] mb-6" />
@@ -477,7 +481,7 @@ export default function App() {
                      <FileCheck className="w-8 h-8 text-[#7B8C7D]" />
                      <div>
                        <h4 className="font-bold text-[#1E293B] mb-1">Audit-Ready Logic</h4>
-                       <p className="text-sm text-[#64748B]">Every decision point is logged with the specific clause, standard, or VCAT precedent used to generate the recommendation.</p>
+                       <p className="text-sm text-[#64748B]">Every decision point is logged with the specific clause, standard, or precedent used to generate the recommendation.</p>
                      </div>
                    </div>
                 </div>
@@ -521,7 +525,7 @@ export default function App() {
                 </button>
               </div>
               <p className="mt-6 text-white/70 text-sm">
-                Expressions of Interest now open for FY26 pilot programs.
+                Expressions of Interest now open for ANZ Pilot Programs (FY26).
               </p>
             </div>
           </section>
@@ -533,7 +537,10 @@ export default function App() {
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
           <div className="text-center md:text-left">
             <StaturaLogo className="h-8 mb-4" onClick={() => navigate('home')} />
-            <p className="text-sm">&copy; 2025 Statura Pty Ltd. Melbourne, Victoria.</p>
+            <p className="text-sm flex items-center justify-center md:justify-start gap-2">
+               &copy; 2025 Statura Pty Ltd. <br/>
+               Melbourne, Australia.
+            </p>
           </div>
           <div className="flex gap-8 text-sm font-medium text-[#1E293B]">
             <button onClick={() => navigate('privacy')} className="hover:text-[#7B8C7D]">Privacy Policy</button>
