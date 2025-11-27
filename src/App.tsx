@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { 
   CheckCircle, Brain, Database, Scale, Map as MapIcon, 
-  ArrowRight, Shield, ChevronRight, Lock, 
-  Menu, X, FileText, Server, Activity, Home, Layers, Search, Bell
+  ArrowRight, Shield, ChevronRight, 
+  Menu, X, Activity, Home, Layers, Search, Bell
 } from 'lucide-react';
 
 // --- BRAND IDENTITY ---
