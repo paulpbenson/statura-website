@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { 
-  CheckCircle, Brain, Database, Scale, Layers, FileText, Map, 
+  CheckCircle, Brain, Database, Scale, FileText, Map, 
   ArrowRight, Users, ShieldCheck, X, ChevronRight, Lock, Play
 } from 'lucide-react';
 
