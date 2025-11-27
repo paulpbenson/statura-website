@@ -1,4 +1,4 @@
-\import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { 
   CheckCircle, Brain, Database, Scale, Map as MapIcon, 
   ArrowRight, Shield, ChevronRight, ChevronDown,
