@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+iimport { useState, useEffect } from 'react';
 import { 
   CheckCircle, Brain, Database, Scale, Map as MapIcon, 
   ArrowRight, Shield, ChevronRight, ChevronDown,
@@ -8,18 +8,29 @@ import {
 
 // --- BRAND IDENTITY ---
 const COLORS = {
-  primary: '#7B8C7D',      // Statura Dark
   secondary: '#96A998',    // Grasmere Green
   textMain: '#1E293B',     // Slate 900
-  textLight: '#64748B',    // Slate 500
-  bg: '#F8FAFC'
 };
 
-// --- SYNTHETIC SCREENSHOTS (ANZ GENERALISED) ---
+// --- FLUSH-LEFT LOGO (Fixed Alignment) ---
+const StaturaLogo = ({ className = "h-10", onClick }: any) => (
+  <svg onClick={onClick} viewBox="0 0 600 150" fill="none" xmlns="http://www.w3.org/2000/svg" className={`${className} cursor-pointer`}>
+    {/* Icon Group - Moved to x=0 for perfect alignment */}
+    <rect x="0" y="15" width="120" height="120" rx="24" fill={COLORS.secondary}/>
+    <path d="M36 100 V 58 H 84 V 100" stroke="white" strokeWidth="10" strokeLinecap="square"/>
+    <rect x="52" y="82" width="18" height="18" rx="2" fill="white"/>
+    
+    {/* Text Group - Tightened Kerning */}
+    <text x="150" y="110" fontFamily="'Merriweather', 'Georgia', serif" fontWeight="900" fontSize="80" fill={COLORS.textMain}>
+      Statura<tspan fill={COLORS.secondary}>.</tspan>
+    </text>
+  </svg>
+);
+
+// --- SYNTHETIC SCREENSHOTS ---
 
 const WorkspaceMockup = () => (
   <div className="w-full rounded-xl overflow-hidden shadow-2xl border border-slate-200 bg-white select-none">
-    {/* Header */}
     <div className="h-8 bg-slate-900 flex items-center px-4 gap-2">
       <div className="flex gap-1.5 opacity-50">
         <div className="w-2.5 h-2.5 rounded-full bg-slate-400"></div>
@@ -30,9 +41,7 @@ const WorkspaceMockup = () => (
         statura.app/assess/DA-2025-849
       </div>
     </div>
-    
     <div className="flex h-[400px]">
-      {/* Sidebar */}
       <div className="w-12 bg-[#7B8C7D] flex flex-col items-center py-4 gap-4 border-r border-slate-800/10">
         <div className="w-8 h-8 rounded bg-white/20"></div>
         <div className="w-6 h-0.5 bg-white/30"></div>
@@ -40,9 +49,7 @@ const WorkspaceMockup = () => (
         <Layers className="w-5 h-5 text-white/80" />
         <Activity className="w-5 h-5 text-white/100" />
       </div>
-
       <div className="flex-1 flex bg-slate-50">
-        {/* Left: Document */}
         <div className="flex-1 p-4 border-r border-slate-200 flex flex-col">
           <div className="bg-white h-full shadow-sm border border-slate-200 rounded p-6 relative overflow-hidden">
              <div className="absolute top-0 right-0 p-2">
@@ -64,8 +71,6 @@ const WorkspaceMockup = () => (
              </div>
           </div>
         </div>
-
-        {/* Right: Checklist */}
         <div className="w-72 bg-white border-l border-slate-200 p-4 flex flex-col">
           <div className="mb-4">
             <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Planning Controls</h4>
@@ -73,7 +78,6 @@ const WorkspaceMockup = () => (
               <div className="h-full w-2/3 bg-[#96A998]"></div>
             </div>
           </div>
-
           <div className="space-y-3">
              <div className="p-3 rounded border border-green-200 bg-green-50">
                <div className="flex justify-between items-start mb-1">
@@ -86,7 +90,6 @@ const WorkspaceMockup = () => (
                  <span className="font-bold">Status: Compliant</span>
                </div>
              </div>
-
              <div className="p-3 rounded border border-slate-200 bg-white">
                <div className="flex justify-between items-start mb-1">
                  <span className="text-sm font-bold text-slate-700">Site Coverage</span>
@@ -96,7 +99,6 @@ const WorkspaceMockup = () => (
                  Calculating impermeable surfaces...
                </div>
              </div>
-
              <div className="mt-auto bg-[#1E293B] p-3 rounded text-white shadow-lg">
                 <div className="flex items-center gap-2 mb-2">
                   <Brain className="w-3 h-3 text-[#96A998]" />
@@ -123,7 +125,6 @@ const DashboardMockup = () => (
          <div className="w-6 h-6 rounded-full bg-[#7B8C7D] text-white text-[10px] flex items-center justify-center">JP</div>
       </div>
     </div>
-    
     <div className="p-4 grid grid-cols-3 gap-3 h-full overflow-hidden">
        <div className="flex flex-col gap-2">
           <div className="flex justify-between items-center text-[10px] font-bold text-slate-500 uppercase">
@@ -137,7 +138,6 @@ const DashboardMockup = () => (
              </div>
           ))}
        </div>
-
        <div className="flex flex-col gap-2">
           <div className="flex justify-between items-center text-[10px] font-bold text-slate-500 uppercase">
              <span>Assessment (5)</span>
@@ -155,7 +155,6 @@ const DashboardMockup = () => (
              <div className="h-2 w-1/2 bg-slate-300 rounded"></div>
           </div>
        </div>
-
        <div className="flex flex-col gap-2">
           <div className="flex justify-between items-center text-[10px] font-bold text-slate-500 uppercase">
              <span>Decided (89)</span>
@@ -172,20 +171,7 @@ const DashboardMockup = () => (
   </div>
 );
 
-// --- COMPONENTS ---
-
-const StaturaLogo = ({ className = "h-10", onClick }: any) => (
-  <svg onClick={onClick} viewBox="0 0 800 300" fill="none" xmlns="http://www.w3.org/2000/svg" className={`${className} cursor-pointer`}>
-    <g transform="translate(50, 50)">
-        <rect x="0" y="0" width="200" height="200" rx="40" fill={COLORS.secondary}/>
-        <path d="M60 140 V 70 H 140 V 140" stroke="white" strokeWidth="16" strokeLinecap="square"/>
-        <rect x="85" y="110" width="30" height="30" rx="4" fill="white"/>
-    </g>
-    <text x="290" y="190" fontFamily="'Merriweather', 'Georgia', serif" fontWeight="900" fontSize="120" fill={COLORS.textMain}>
-      Statura<tspan fill={COLORS.secondary}>.</tspan>
-    </text>
-  </svg>
-);
+// --- UI COMPONENTS ---
 
 const Button = ({ children, variant = 'primary', icon: Icon, onClick, className = '' }: any) => {
   const base = "inline-flex items-center justify-center px-6 py-3 rounded-lg font-medium transition-all duration-200 text-lg font-sans cursor-pointer";
@@ -194,7 +180,6 @@ const Button = ({ children, variant = 'primary', icon: Icon, onClick, className 
     outline: `border-2 border-[#1E293B] text-[#1E293B] hover:bg-slate-50`,
     ghost: `text-[#1E293B] hover:bg-slate-100`
   };
-  
   return (
     <button onClick={onClick} className={`${base} ${styles[variant as keyof typeof styles]} ${className}`}>
       {children}
@@ -206,16 +191,16 @@ const Button = ({ children, variant = 'primary', icon: Icon, onClick, className 
 const FAQItem = ({ question, answer }: any) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <div className="border-b border-slate-200">
+    <div className="border-b border-slate-200 last:border-0">
       <button 
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full py-6 flex justify-between items-center text-left focus:outline-none"
+        className="w-full py-6 flex justify-between items-center text-left focus:outline-none hover:bg-slate-50/50 transition-colors px-2 -mx-2 rounded-lg"
       >
         <span className="text-lg font-serif text-[#1E293B] font-medium">{question}</span>
         <ChevronDown className={`w-5 h-5 text-[#64748B] transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
       </button>
       <div className={`overflow-hidden transition-all duration-300 ${isOpen ? 'max-h-48 pb-6' : 'max-h-0'}`}>
-        <p className="text-[#64748B] leading-relaxed">{answer}</p>
+        <p className="text-[#64748B] leading-relaxed px-2">{answer}</p>
       </div>
     </div>
   );
@@ -239,7 +224,7 @@ const LegalPage = ({ title, lastUpdated, content, onBack }: any) => (
   </div>
 );
 
-// --- MAIN APP ---
+// --- MAIN APPLICATION ---
 
 export default function App() {
   const [scrolled, setScrolled] = useState(false);
@@ -256,7 +241,6 @@ export default function App() {
     window.scrollTo(0, 0);
   }, [view]);
 
-  // SCROLL HELPER
   const scrollToSection = (id: string) => {
     if (view !== 'home') {
       setView('home');
@@ -271,7 +255,11 @@ export default function App() {
     setMobileMenuOpen(false);
   };
 
-  // CONTENT
+  const navigate = (page: 'home' | 'privacy' | 'terms') => {
+    setView(page);
+    setMobileMenuOpen(false);
+  };
+
   const privacyContent = [
     { heading: "1. Data Collection & Usage", text: "Statura collects information necessary to provide statutory planning services. This includes applicant data, property details, and council workflows. We adhere to the Australian Privacy Principles (APPs)." },
     { heading: "2. Data Sovereignty", text: "All data is hosted within Australian jurisdiction on SOC2 Type II compliant infrastructure (AWS Sydney Region). We do not transfer council data offshore." },
@@ -283,43 +271,57 @@ export default function App() {
     { heading: "2. Service Level Agreement (SLA)", text: "We commit to 99.9% uptime during business hours. Critical issues are responded to within 1 hour." }
   ];
 
-  const navigate = (page: 'home' | 'privacy' | 'terms') => {
-    setView(page);
-    setMobileMenuOpen(false);
-  };
-
   return (
     <div className="min-h-screen bg-[#F8FAFC] font-sans text-[#1E293B]">
       
-      {/* NAVIGATION */}
-      <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled || mobileMenuOpen ? 'bg-white shadow-sm py-2' : 'bg-transparent py-4'}`}>
-        <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-          <StaturaLogo className="h-10" onClick={() => navigate('home')} />
+      {/* NAVIGATION BAR - FIXED ALIGNMENT */}
+      <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled || mobileMenuOpen ? 'bg-white shadow-sm py-2' : 'bg-transparent py-6'}`}>
+        <div className="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-12 items-center">
           
-          <div className="hidden md:flex gap-8 font-medium text-[#64748B]">
-            <button onClick={() => scrollToSection('features')} className="hover:text-[#7B8C7D] transition-colors">Platform</button>
-            <button onClick={() => scrollToSection('impact')} className="hover:text-[#7B8C7D] transition-colors">Impact</button>
-            <button onClick={() => scrollToSection('security')} className="hover:text-[#7B8C7D] transition-colors">Security</button>
+          {/* 1. Logo Section (Flush Left) */}
+          <div className="col-span-1 md:col-span-3 flex justify-start">
+            <StaturaLogo className="h-10 md:h-12 w-auto" onClick={() => navigate('home')} />
+          </div>
+          
+          {/* 2. Navigation Links (Dead Center) */}
+          <div className="hidden md:flex md:col-span-6 justify-center gap-10 font-medium text-[#64748B]">
+            <button onClick={() => scrollToSection('features')} className="hover:text-[#7B8C7D] transition-colors relative group">
+              Platform
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#7B8C7D] transition-all group-hover:w-full"></span>
+            </button>
+            <button onClick={() => scrollToSection('impact')} className="hover:text-[#7B8C7D] transition-colors relative group">
+              Impact
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#7B8C7D] transition-all group-hover:w-full"></span>
+            </button>
+            <button onClick={() => scrollToSection('security')} className="hover:text-[#7B8C7D] transition-colors relative group">
+              Security
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#7B8C7D] transition-all group-hover:w-full"></span>
+            </button>
           </div>
 
-          <div className="hidden md:flex items-center gap-4">
-            <a href="https://app.statura.com.au" className="text-sm font-semibold text-[#64748B] hover:text-[#1E293B]">
+          {/* 3. Action Buttons (Flush Right) */}
+          <div className="hidden md:flex md:col-span-3 justify-end items-center gap-6">
+            <a href="https://app.statura.com.au" className="text-sm font-semibold text-[#64748B] hover:text-[#1E293B] transition-colors">
               Client Login
             </a>
-            <Button onClick={() => window.location.href = 'mailto:sales@statura.com.au'}>Request Access</Button>
+            <Button onClick={() => window.location.href = 'mailto:sales@statura.com.au'} className="px-5 py-2.5 text-base">Request Access</Button>
           </div>
 
-          <button className="md:hidden" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-            {mobileMenuOpen ? <X /> : <Menu />}
-          </button>
+          {/* Mobile Menu Toggle */}
+          <div className="col-span-1 md:hidden flex justify-end">
+            <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+              {mobileMenuOpen ? <X className="text-[#1E293B]" /> : <Menu className="text-[#1E293B]" />}
+            </button>
+          </div>
         </div>
 
+        {/* Mobile Dropdown */}
         {mobileMenuOpen && (
-          <div className="absolute top-full left-0 w-full bg-white border-t border-slate-100 p-6 shadow-xl md:hidden flex flex-col gap-4">
-             <button onClick={() => scrollToSection('features')} className="text-left py-2 font-medium text-[#1E293B]">Platform</button>
-             <button onClick={() => scrollToSection('impact')} className="text-left py-2 font-medium text-[#1E293B]">Impact</button>
-             <button onClick={() => navigate('privacy')} className="text-left py-2 font-medium text-[#1E293B]">Privacy</button>
-             <a href="https://app.statura.com.au" className="text-left py-2 font-medium text-[#7B8C7D]">Client Login</a>
+          <div className="absolute top-full left-0 w-full bg-white border-t border-slate-100 p-6 shadow-xl md:hidden flex flex-col gap-4 animate-in slide-in-from-top-2 duration-200">
+             <button onClick={() => scrollToSection('features')} className="text-left py-3 font-medium text-[#1E293B] border-b border-slate-100">Platform</button>
+             <button onClick={() => scrollToSection('impact')} className="text-left py-3 font-medium text-[#1E293B] border-b border-slate-100">Impact</button>
+             <button onClick={() => navigate('privacy')} className="text-left py-3 font-medium text-[#1E293B] border-b border-slate-100">Privacy</button>
+             <a href="https://app.statura.com.au" className="text-left py-3 font-medium text-[#7B8C7D]">Client Login</a>
           </div>
         )}
       </nav>
@@ -331,8 +333,8 @@ export default function App() {
       {view === 'home' && (
         <>
           {/* HERO SECTION */}
-          <header className="relative pt-40 pb-24 px-6 overflow-hidden">
-            <div className="max-w-5xl mx-auto text-center relative z-10">
+          <header className="relative pt-48 pb-24 px-6 overflow-hidden">
+            <div className="max-w-4xl mx-auto text-center relative z-10">
               <h1 className="font-serif text-5xl md:text-7xl leading-[1.1] text-[#1E293B] mb-8 tracking-tight">
                 The Operating System for <br/>
                 <span className="text-[#7B8C7D]">Statutory Planning</span>
@@ -353,10 +355,10 @@ export default function App() {
           </header>
 
           {/* ECOSYSTEM FIT (ANZ Standard) */}
-          <section className="border-y border-slate-200 bg-white py-12 overflow-hidden">
+          <section className="border-y border-slate-200 bg-white py-14 overflow-hidden">
              <div className="max-w-7xl mx-auto px-6 text-center">
-               <p className="text-xs font-bold text-[#64748B] uppercase tracking-widest mb-8">Built for the Australian & NZ Planning Systems</p>
-               <div className="flex flex-wrap justify-center items-center gap-12 md:gap-20 opacity-60">
+               <p className="text-xs font-bold text-[#64748B] uppercase tracking-widest mb-10">Built for the Australian & NZ Planning Systems</p>
+               <div className="flex flex-wrap justify-center items-center gap-x-16 gap-y-8 opacity-60">
                  <span className="font-serif text-xl font-bold text-slate-400">Legislative Compliance</span>
                  <span className="font-serif text-xl font-bold text-slate-400">Compatible with Pathway</span>
                  <span className="font-serif text-xl font-bold text-slate-400">TechnologyOne Ready</span>
@@ -373,7 +375,7 @@ export default function App() {
                   The Planner's IDE
                 </div>
                 <h2 className="font-serif text-4xl text-[#1E293B] mb-6">Focus on decisions, not document management.</h2>
-                <p className="text-[#64748B] text-lg mb-8">
+                <p className="text-[#64748B] text-lg mb-8 leading-relaxed">
                   The Statura Workspace integrates your document viewer, GIS layers, and assessment checklist into a single, unified view. No more dual-monitor shuffling.
                 </p>
                 <ul className="space-y-4">
@@ -382,15 +384,15 @@ export default function App() {
                     "Dynamic RFI Drafting: One-click generation based on checklist gaps.",
                     "Live GIS Overlay: Contextual spatial data without leaving the application."
                   ].map((item, i) => (
-                    <li key={i} className="flex gap-3">
-                      <CheckCircle className="w-6 h-6 text-[#96A998] flex-shrink-0" />
+                    <li key={i} className="flex gap-3 items-start">
+                      <CheckCircle className="w-6 h-6 text-[#96A998] flex-shrink-0 mt-0.5" />
                       <span className="text-[#1E293B]">{item}</span>
                     </li>
                   ))}
                 </ul>
               </div>
               <div className="relative group">
-                <div className="absolute inset-0 bg-slate-200 transform translate-x-4 translate-y-4 rounded-xl -z-10"></div>
+                <div className="absolute inset-0 bg-slate-200 transform translate-x-4 translate-y-4 rounded-xl -z-10 transition-transform group-hover:translate-x-3 group-hover:translate-y-3"></div>
                 <WorkspaceMockup />
               </div>
             </div>
@@ -402,7 +404,7 @@ export default function App() {
               <div className="grid md:grid-cols-2 gap-16 items-center">
                 <div>
                    <h2 className="font-serif text-4xl mb-6">Built for Efficiency. <br/>Engineered for Compliance.</h2>
-                   <p className="text-slate-300 text-lg mb-8">
+                   <p className="text-slate-300 text-lg mb-8 leading-relaxed">
                      Statura is a capacity multiplier. By automating routine numeric and compliance checks, we empower Councils to clear the backlog and focus senior planners on high-value assessments.
                    </p>
                    <Button variant="outline" className="text-white border-white hover:bg-white/10" onClick={() => window.location.href = 'mailto:sales@statura.com.au'}>
@@ -410,17 +412,17 @@ export default function App() {
                    </Button>
                 </div>
                 <div className="grid grid-cols-2 gap-6">
-                   <div className="bg-white/5 p-6 rounded-xl border border-white/10 backdrop-blur-sm">
+                   <div className="bg-white/5 p-8 rounded-xl border border-white/10 backdrop-blur-sm hover:bg-white/10 transition-colors">
                       <Cpu className="w-8 h-8 text-[#96A998] mb-4" />
                       <div className="text-xl font-bold mb-2">Automated Intake</div>
                       <div className="text-sm text-slate-400">Pre-screens applications for missing documents before assignment.</div>
                    </div>
-                   <div className="bg-white/5 p-6 rounded-xl border border-white/10 backdrop-blur-sm">
+                   <div className="bg-white/5 p-8 rounded-xl border border-white/10 backdrop-blur-sm hover:bg-white/10 transition-colors">
                       <Zap className="w-8 h-8 text-[#96A998] mb-4" />
                       <div className="text-xl font-bold mb-2">Instant Drafting</div>
                       <div className="text-sm text-slate-400">Generates RFIs and Officer Reports based on checklist status.</div>
                    </div>
-                   <div className="bg-white/5 p-6 rounded-xl border border-white/10 backdrop-blur-sm col-span-2">
+                   <div className="bg-white/5 p-8 rounded-xl border border-white/10 backdrop-blur-sm col-span-2 hover:bg-white/10 transition-colors">
                       <div className="flex items-center gap-3 mb-2">
                         <CheckCircle className="w-6 h-6 text-[#96A998]" />
                         <span className="text-xl font-bold">Zero Hallucinations</span>
@@ -442,20 +444,20 @@ export default function App() {
                 </p>
               </div>
               <div className="grid md:grid-cols-3 gap-8">
-                <div className="p-8 rounded-xl border border-slate-200 bg-slate-50 hover:shadow-lg transition-shadow">
+                <div className="p-8 rounded-xl border border-slate-200 bg-slate-50 hover:shadow-lg transition-all hover:-translate-y-1">
                   <Scale className="w-10 h-10 text-[#96A998] mb-6" />
                   <h3 className="font-serif text-2xl text-[#1E293B] mb-3">Legislative Brain</h3>
-                  <p className="text-[#64748B]">Deterministic rules for numeric standards (e.g. Setbacks, Height). Zero hallucination. If the control is 4m, Statura knows it's 4m.</p>
+                  <p className="text-[#64748B] leading-relaxed">Deterministic rules for numeric standards (e.g. Setbacks, Height). Zero hallucination. If the control is 4m, Statura knows it's 4m.</p>
                 </div>
-                <div className="p-8 rounded-xl border border-slate-200 bg-slate-50 hover:shadow-lg transition-shadow">
+                <div className="p-8 rounded-xl border border-slate-200 bg-slate-50 hover:shadow-lg transition-all hover:-translate-y-1">
                   <Database className="w-10 h-10 text-[#96A998] mb-6" />
                   <h3 className="font-serif text-2xl text-[#1E293B] mb-3">Archive Brain</h3>
-                  <p className="text-[#64748B]">Vector database retrieval of relevant Tribunal/Court precedents and past council decisions to ensure consistency.</p>
+                  <p className="text-[#64748B] leading-relaxed">Vector database retrieval of relevant Tribunal/Court precedents and past council decisions to ensure consistency.</p>
                 </div>
-                <div className="p-8 rounded-xl border border-slate-200 bg-slate-50 hover:shadow-lg transition-shadow">
+                <div className="p-8 rounded-xl border border-slate-200 bg-slate-50 hover:shadow-lg transition-all hover:-translate-y-1">
                   <Brain className="w-10 h-10 text-[#96A998] mb-6" />
                   <h3 className="font-serif text-2xl text-[#1E293B] mb-3">Intake Brain</h3>
-                  <p className="text-[#64748B]">LLM-powered reasoning for unstructured text extraction, turning messy PDF applications into structured data.</p>
+                  <p className="text-[#64748B] leading-relaxed">LLM-powered reasoning for unstructured text extraction, turning messy PDF applications into structured data.</p>
                 </div>
               </div>
             </div>
@@ -465,7 +467,7 @@ export default function App() {
           <section className="py-24 px-6 bg-[#F8FAFC]">
             <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
               <div className="order-2 lg:order-1 relative group h-full">
-                 <div className="absolute inset-0 bg-[#96A998]/20 transform -translate-x-4 translate-y-4 rounded-xl -z-10"></div>
+                 <div className="absolute inset-0 bg-[#96A998]/20 transform -translate-x-4 translate-y-4 rounded-xl -z-10 transition-transform group-hover:-translate-x-3 group-hover:translate-y-3"></div>
                  <DashboardMockup />
               </div>
               <div className="order-1 lg:order-2">
@@ -473,12 +475,12 @@ export default function App() {
                   Intelligent Intake
                 </div>
                 <h2 className="font-serif text-4xl text-[#1E293B] mb-6">Stop manual data entry.</h2>
-                <p className="text-[#64748B] text-lg mb-8">
+                <p className="text-[#64748B] text-lg mb-8 leading-relaxed">
                   Statura processes incoming applications instantly. Our Intake Brain reads the PDFs, extracts the key metrics, and pre-populates the assessment module before a planner even opens the file.
                 </p>
                 <div className="p-6 bg-white border-l-4 border-[#7B8C7D] shadow-sm">
                    <div className="flex items-start gap-4">
-                     <FileCheck className="w-8 h-8 text-[#7B8C7D]" />
+                     <FileCheck className="w-8 h-8 text-[#7B8C7D] flex-shrink-0" />
                      <div>
                        <h4 className="font-bold text-[#1E293B] mb-1">Audit-Ready Logic</h4>
                        <p className="text-sm text-[#64748B]">Every decision point is logged with the specific clause, standard, or precedent used to generate the recommendation.</p>
@@ -536,7 +538,7 @@ export default function App() {
       <footer className="bg-white text-slate-500 py-12 px-6 border-t border-slate-200">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
           <div className="text-center md:text-left">
-            <StaturaLogo className="h-8 mb-4" onClick={() => navigate('home')} />
+            <StaturaLogo className="h-8 w-auto mb-4" onClick={() => navigate('home')} />
             <p className="text-sm flex items-center justify-center md:justify-start gap-2">
                &copy; 2025 Statura Pty Ltd. <br/>
                Melbourne, Australia.
