@@ -1,23 +1,193 @@
 import { useState, useEffect } from 'react';
 import { 
-  CheckCircle, Brain, Database, Scale, FileText, Map, 
-  ArrowRight, Users, ShieldCheck, X, ChevronRight, Lock, Play
+  CheckCircle, Brain, Database, Scale, Map as MapIcon, 
+  ArrowRight, Shield, ChevronRight, Lock, 
+  Menu, X, FileText, Server, Activity, Home, Layers, Search, Bell
 } from 'lucide-react';
 
-// --- BRAND IDENTITY SYSTEM ---
+// --- BRAND IDENTITY ---
 const COLORS = {
   primary: '#7B8C7D',      // Statura Dark
   secondary: '#96A998',    // Grasmere Green
-  bg: '#F8FAFC',           // Ultra Light Slate
   textMain: '#1E293B',     // Slate 900
   textLight: '#64748B',    // Slate 500
-  accent: '#0F172A'        // Deep Navy for contrast
+  bg: '#F8FAFC'
 };
+
+// --- SYNTHETIC SCREENSHOTS (THE "MOCKUPS") ---
+
+const WorkspaceMockup = () => (
+  <div className="w-full rounded-xl overflow-hidden shadow-2xl border border-slate-200 bg-white select-none">
+    {/* Browser Header */}
+    <div className="h-8 bg-slate-900 flex items-center px-4 gap-2">
+      <div className="flex gap-1.5 opacity-50">
+        <div className="w-2.5 h-2.5 rounded-full bg-slate-400"></div>
+        <div className="w-2.5 h-2.5 rounded-full bg-slate-400"></div>
+        <div className="w-2.5 h-2.5 rounded-full bg-slate-400"></div>
+      </div>
+      <div className="ml-4 h-5 w-64 bg-slate-800 rounded text-[10px] text-slate-400 flex items-center px-2 font-mono">
+        statura.app/assess/APP-2025-849
+      </div>
+    </div>
+    
+    {/* App Interface */}
+    <div className="flex h-[400px]">
+      {/* Sidebar (Collapsed) */}
+      <div className="w-12 bg-[#7B8C7D] flex flex-col items-center py-4 gap-4 border-r border-slate-800/10">
+        <div className="w-8 h-8 rounded bg-white/20"></div>
+        <div className="w-6 h-0.5 bg-white/30"></div>
+        <Home className="w-5 h-5 text-white/80" />
+        <Layers className="w-5 h-5 text-white/80" />
+        <Activity className="w-5 h-5 text-white/100" />
+      </div>
+
+      {/* Main Content Split */}
+      <div className="flex-1 flex bg-slate-50">
+        {/* Left: Document Viewer */}
+        <div className="flex-1 p-4 border-r border-slate-200 flex flex-col">
+          <div className="bg-white h-full shadow-sm border border-slate-200 rounded p-6 relative overflow-hidden">
+             {/* Fake PDF Content */}
+             <div className="absolute top-0 right-0 p-2">
+                <span className="bg-red-100 text-red-700 text-[10px] font-bold px-2 py-0.5 rounded">PDF</span>
+             </div>
+             <div className="w-2/3 h-4 bg-slate-800 mb-6 rounded-sm"></div>
+             <div className="space-y-2 mb-8">
+               <div className="w-full h-2 bg-slate-200 rounded-sm"></div>
+               <div className="w-full h-2 bg-slate-200 rounded-sm"></div>
+               <div className="w-5/6 h-2 bg-slate-200 rounded-sm"></div>
+             </div>
+             {/* Fake Diagram/Map */}
+             <div className="w-full aspect-video bg-slate-100 rounded border-2 border-dashed border-slate-200 flex items-center justify-center relative">
+                <MapIcon className="text-slate-300 w-12 h-12" />
+                {/* GIS Layer Overlay */}
+                <div className="absolute top-4 left-4 right-4 bottom-4 bg-[#96A998]/20 border border-[#96A998] rounded flex items-center justify-center">
+                  <span className="bg-[#96A998] text-white text-[10px] font-bold px-2 py-1 rounded shadow-sm">
+                    Zone: GRZ1 (Detected)
+                  </span>
+                </div>
+             </div>
+          </div>
+        </div>
+
+        {/* Right: Assessment Checklist */}
+        <div className="w-72 bg-white border-l border-slate-200 p-4 flex flex-col">
+          <div className="mb-4">
+            <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">ResCode Assessment</h4>
+            <div className="h-1 w-full bg-slate-100 rounded overflow-hidden">
+              <div className="h-full w-2/3 bg-[#96A998]"></div>
+            </div>
+          </div>
+
+          <div className="space-y-3">
+             {/* Checklist Item 1 */}
+             <div className="p-3 rounded border border-green-200 bg-green-50">
+               <div className="flex justify-between items-start mb-1">
+                 <span className="text-sm font-bold text-slate-700">A1 Street Setback</span>
+                 <CheckCircle className="w-4 h-4 text-green-600" />
+               </div>
+               <div className="text-[10px] text-green-800">
+                 Required: 6.0m <br/>
+                 Proposed: 6.2m <br/>
+                 <span className="font-bold">Status: Compliant</span>
+               </div>
+             </div>
+
+             {/* Checklist Item 2 */}
+             <div className="p-3 rounded border border-slate-200 bg-white">
+               <div className="flex justify-between items-start mb-1">
+                 <span className="text-sm font-bold text-slate-700">A3 Site Coverage</span>
+                 <div className="w-4 h-4 rounded-full border-2 border-slate-300"></div>
+               </div>
+               <div className="text-[10px] text-slate-500">
+                 Calculating impermeable surfaces...
+               </div>
+             </div>
+
+             {/* Copilot Box */}
+             <div className="mt-auto bg-[#1E293B] p-3 rounded text-white shadow-lg">
+                <div className="flex items-center gap-2 mb-2">
+                  <Brain className="w-3 h-3 text-[#96A998]" />
+                  <span className="text-xs font-bold">Statura Copilot</span>
+                </div>
+                <p className="text-[10px] text-slate-300 leading-snug">
+                  I've detected a Front Fence >1.5m. This triggers a Regulation 42 assessment.
+                </p>
+             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
+const DashboardMockup = () => (
+  <div className="w-full rounded-xl overflow-hidden shadow-2xl border border-slate-200 bg-[#F1F5F9] select-none h-full min-h-[300px] flex flex-col">
+    {/* Header */}
+    <div className="h-12 bg-white border-b border-slate-200 flex items-center justify-between px-4">
+      <div className="font-serif font-bold text-slate-800">Dashboard</div>
+      <div className="flex gap-2">
+         <Search className="w-4 h-4 text-slate-400" />
+         <Bell className="w-4 h-4 text-slate-400" />
+         <div className="w-6 h-6 rounded-full bg-[#7B8C7D] text-white text-[10px] flex items-center justify-center">JP</div>
+      </div>
+    </div>
+    
+    {/* Kanban Board */}
+    <div className="p-4 grid grid-cols-3 gap-3 h-full overflow-hidden">
+       {/* Column 1 */}
+       <div className="flex flex-col gap-2">
+          <div className="flex justify-between items-center text-[10px] font-bold text-slate-500 uppercase">
+             <span>Received (12)</span>
+          </div>
+          {[1,2].map(i => (
+             <div key={i} className="bg-white p-3 rounded shadow-sm border border-slate-200">
+                <div className="h-2 w-16 bg-blue-100 rounded mb-2"></div>
+                <div className="h-3 w-3/4 bg-slate-800 rounded mb-1"></div>
+                <div className="h-2 w-1/2 bg-slate-300 rounded"></div>
+             </div>
+          ))}
+       </div>
+
+       {/* Column 2 */}
+       <div className="flex flex-col gap-2">
+          <div className="flex justify-between items-center text-[10px] font-bold text-slate-500 uppercase">
+             <span>Assessment (5)</span>
+          </div>
+          <div className="bg-white p-3 rounded shadow-sm border-l-4 border-[#96A998]">
+             <div className="flex justify-between mb-2">
+                <span className="text-[10px] bg-slate-100 px-1 rounded text-slate-600">Day 14</span>
+                <Activity className="w-3 h-3 text-[#96A998]" />
+             </div>
+             <div className="text-xs font-bold text-slate-800 mb-1">42 Wallaby Way</div>
+             <div className="text-[10px] text-slate-500">Waiting on RFI Response</div>
+          </div>
+          <div className="bg-white p-3 rounded shadow-sm border border-slate-200 opacity-60">
+             <div className="h-3 w-2/3 bg-slate-800 rounded mb-1"></div>
+             <div className="h-2 w-1/2 bg-slate-300 rounded"></div>
+          </div>
+       </div>
+
+       {/* Column 3 */}
+       <div className="flex flex-col gap-2">
+          <div className="flex justify-between items-center text-[10px] font-bold text-slate-500 uppercase">
+             <span>Decided (89)</span>
+          </div>
+          <div className="bg-white p-3 rounded shadow-sm border border-slate-200">
+             <div className="flex gap-1 mb-2">
+               <CheckCircle className="w-3 h-3 text-green-600" />
+               <span className="text-[10px] text-green-700 font-bold">Permit Granted</span>
+             </div>
+             <div className="h-3 w-3/4 bg-slate-800 rounded"></div>
+          </div>
+       </div>
+    </div>
+  </div>
+);
 
 // --- COMPONENTS ---
 
-const StaturaLogo = ({ className = "h-10" }: { className?: string }) => (
-  <svg viewBox="0 0 800 300" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+const StaturaLogo = ({ className = "h-10", onClick }: any) => (
+  <svg onClick={onClick} viewBox="0 0 800 300" fill="none" xmlns="http://www.w3.org/2000/svg" className={`${className} cursor-pointer`}>
     <g transform="translate(50, 50)">
         <rect x="0" y="0" width="200" height="200" rx="40" fill={COLORS.secondary}/>
         <path d="M60 140 V 70 H 140 V 140" stroke="white" strokeWidth="16" strokeLinecap="square"/>
@@ -29,7 +199,7 @@ const StaturaLogo = ({ className = "h-10" }: { className?: string }) => (
   </svg>
 );
 
-const Button = ({ children, variant = 'primary', icon: Icon, onClick }: any) => {
+const Button = ({ children, variant = 'primary', icon: Icon, onClick, className = '' }: any) => {
   const base = "inline-flex items-center justify-center px-6 py-3 rounded-lg font-medium transition-all duration-200 text-lg font-sans cursor-pointer";
   const styles = {
     primary: `bg-[#1E293B] text-white hover:bg-[#7B8C7D] shadow-lg hover:shadow-xl hover:-translate-y-0.5`,
@@ -38,335 +208,289 @@ const Button = ({ children, variant = 'primary', icon: Icon, onClick }: any) => 
   };
   
   return (
-    <button onClick={onClick} className={`${base} ${styles[variant as keyof typeof styles]}`}>
+    <button onClick={onClick} className={`${base} ${styles[variant as keyof typeof styles]} ${className}`}>
       {children}
       {Icon && <Icon className="ml-2 w-5 h-5" />}
     </button>
   );
 };
 
-const Modal = ({ isOpen, onClose, title, children }: any) => {
-  if (!isOpen) return null;
-  return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-sm animate-in fade-in duration-200">
-      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg overflow-hidden border border-slate-100">
-        <div className="px-6 py-4 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
-          <h3 className="font-serif text-xl text-[#1E293B]">{title}</h3>
-          <button onClick={onClose} className="p-2 hover:bg-slate-200 rounded-full transition-colors">
-            <X className="w-5 h-5 text-slate-500" />
-          </button>
+// --- LEGAL PAGES (Privacy & Terms) ---
+const LegalPage = ({ title, lastUpdated, content, onBack }: any) => (
+  <div className="pt-32 pb-24 px-6 max-w-4xl mx-auto min-h-screen animate-fade-in-up">
+    <button onClick={onBack} className="flex items-center text-[#7B8C7D] mb-8 hover:underline font-medium">
+      <ChevronRight className="rotate-180 w-4 h-4 mr-1" /> Back to Home
+    </button>
+    <h1 className="font-serif text-4xl text-[#1E293B] mb-2">{title}</h1>
+    <p className="text-[#64748B] mb-12 border-b border-slate-200 pb-8">Last Updated: {lastUpdated}</p>
+    <div className="prose prose-slate max-w-none">
+      {content.map((section: any, i: number) => (
+        <div key={i} className="mb-10">
+          <h3 className="text-xl font-bold text-[#1E293B] mb-3">{section.heading}</h3>
+          <p className="text-[#64748B] leading-relaxed whitespace-pre-line">{section.text}</p>
         </div>
-        <div className="p-6">{children}</div>
-      </div>
+      ))}
     </div>
-  );
-};
-
-// --- SECTIONS ---
-
-const FeatureCard = ({ title, desc, icon: Icon }: any) => (
-  <div className="bg-white p-8 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 group">
-    <div className="w-12 h-12 bg-slate-50 rounded-lg flex items-center justify-center mb-6 group-hover:bg-[#96A998] transition-colors duration-300">
-      <Icon className="w-6 h-6 text-[#7B8C7D] group-hover:text-white" />
-    </div>
-    <h3 className="font-serif text-2xl text-[#1E293B] mb-3">{title}</h3>
-    <p className="text-[#64748B] font-sans leading-relaxed">{desc}</p>
   </div>
 );
 
-// --- MAIN APPLICATION ---
+// --- MAIN APP ---
 
 export default function App() {
   const [scrolled, setScrolled] = useState(false);
-  const [showDemoModal, setShowDemoModal] = useState(false);
-  const [showInvestorModal, setShowInvestorModal] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [view, setView] = useState<'home' | 'privacy' | 'terms'>('home');
 
-  // Handle Scroll Effect for Navbar
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const openApp = () => window.open('https://app.statura.com.au', '_blank');
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [view]);
+
+  // CONTENT FOR LEGAL PAGES
+  const privacyContent = [
+    { heading: "1. Data Collection & Usage", text: "Statura collects information necessary to provide statutory planning services. This includes applicant data, property details, and council workflows. We adhere to the Australian Privacy Principles (APPs)." },
+    { heading: "2. Data Sovereignty", text: "All data is hosted within Australian jurisdiction on SOC2 Type II compliant infrastructure. We do not transfer council data offshore." },
+    { heading: "3. AI & Data Privacy", text: "Customer data is strictly isolated. Inputs processed by our 'Intake Brain' are not used to train public models. Your planning data remains your intellectual property." }
+  ];
+
+  const termsContent = [
+    { heading: "1. Service License", text: "Statura grants the Council a non-exclusive, non-transferable license to access the Platform for statutory planning purposes." },
+    { heading: "2. Service Level Agreement (SLA)", text: "We commit to 99.9% uptime during business hours. Critical issues are responded to within 1 hour." }
+  ];
+
+  // RENDER HELPERS
+  const navigate = (page: 'home' | 'privacy' | 'terms') => {
+    setView(page);
+    setMobileMenuOpen(false);
+  };
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] font-sans text-[#1E293B] selection:bg-[#96A998] selection:text-white">
+    <div className="min-h-screen bg-[#F8FAFC] font-sans text-[#1E293B]">
       
-      {/* NAVBAR */}
-      <nav className={`fixed top-0 w-full z-40 transition-all duration-300 ${scrolled ? 'bg-white/90 backdrop-blur-md shadow-sm py-2' : 'bg-transparent py-4'}`}>
+      {/* NAVIGATION */}
+      <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled || mobileMenuOpen ? 'bg-white shadow-sm py-2' : 'bg-transparent py-4'}`}>
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-          <StaturaLogo className="h-10" />
+          <StaturaLogo className="h-10" onClick={() => navigate('home')} />
           
+          {/* Desktop Nav */}
           <div className="hidden md:flex gap-8 font-medium text-[#64748B]">
-            <a href="#platform" className="hover:text-[#7B8C7D] transition-colors">Platform</a>
-            <a href="#brains" className="hover:text-[#7B8C7D] transition-colors">Technology</a>
-            <a href="#portal" className="hover:text-[#7B8C7D] transition-colors">For Applicants</a>
+            <button onClick={() => navigate('home')} className="hover:text-[#7B8C7D] transition-colors">Platform</button>
+            <button onClick={() => navigate('home')} className="hover:text-[#7B8C7D] transition-colors">Security</button>
+            <button onClick={() => navigate('home')} className="hover:text-[#7B8C7D] transition-colors">Case Studies</button>
           </div>
 
-          <div className="flex items-center gap-4">
-            <button 
-              onClick={() => setShowInvestorModal(true)}
-              className="hidden md:flex items-center gap-2 text-sm font-semibold text-[#64748B] hover:text-[#1E293B]"
-            >
-              <Lock className="w-4 h-4" /> Investor Login
-            </button>
-            <Button onClick={() => setShowDemoModal(true)}>Book Demo</Button>
+          <div className="hidden md:flex items-center gap-4">
+            <a href="https://app.statura.com.au" className="text-sm font-semibold text-[#64748B] hover:text-[#1E293B]">
+              Client Login
+            </a>
+            <Button onClick={() => window.location.href = 'mailto:sales@statura.com.au'}>Request Access</Button>
           </div>
+
+          {/* Mobile Menu Toggle */}
+          <button className="md:hidden" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+            {mobileMenuOpen ? <X /> : <Menu />}
+          </button>
         </div>
+
+        {/* Mobile Menu */}
+        {mobileMenuOpen && (
+          <div className="absolute top-full left-0 w-full bg-white border-t border-slate-100 p-6 shadow-xl md:hidden flex flex-col gap-4">
+             <button onClick={() => navigate('home')} className="text-left py-2 font-medium text-[#1E293B]">Platform</button>
+             <button onClick={() => navigate('privacy')} className="text-left py-2 font-medium text-[#1E293B]">Privacy</button>
+             <a href="https://app.statura.com.au" className="text-left py-2 font-medium text-[#7B8C7D]">Client Login</a>
+          </div>
+        )}
       </nav>
 
-      {/* HERO SECTION */}
-      <header className="relative pt-40 pb-32 px-6 overflow-hidden">
-        <div className="max-w-5xl mx-auto text-center relative z-10">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#96A998]/10 text-[#7B8C7D] font-bold text-sm mb-8 border border-[#96A998]/20 animate-fade-in-up">
-            <span className="w-2 h-2 rounded-full bg-[#96A998] animate-pulse"></span>
-            V13 Gold Master Live
-          </div>
-          
-          <h1 className="font-serif text-5xl md:text-7xl leading-[1.1] text-[#1E293B] mb-8 tracking-tight">
-            The Operating System for <br/>
-            <span className="text-[#7B8C7D]">Statutory Planning</span>
-          </h1>
-          
-          <p className="font-sans text-xl text-[#64748B] max-w-2xl mx-auto mb-10 leading-relaxed">
-            Statura moves Councils beyond simple document storage. We orchestrate the entire planning workflow with intelligent automation and zero-hallucination compliance checks.
-          </p>
-          
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Button icon={ArrowRight} onClick={openApp}>Launch Interactive Pilot</Button>
-            <Button variant="outline" icon={Play} onClick={() => setShowDemoModal(true)}>Watch Video</Button>
-          </div>
-          
-          <p className="mt-6 text-sm text-[#64748B]/60">
-            Trusted by forward-thinking Councils and Investors.
-          </p>
-        </div>
-
-        {/* Hero Background Glows */}
-        <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
-           <div className="absolute top-[-10%] right-[-5%] w-[600px] h-[600px] bg-[#96A998]/20 rounded-full blur-[120px]"></div>
-           <div className="absolute bottom-[-10%] left-[-10%] w-[800px] h-[800px] bg-[#7B8C7D]/10 rounded-full blur-[120px]"></div>
-        </div>
-      </header>
-
-      {/* PRODUCT UI SHOWCASE */}
-      <section id="platform" className="px-6 -mt-20 mb-24 relative z-20">
-        <div className="max-w-6xl mx-auto bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden ring-1 ring-slate-900/5">
-          {/* Mock Browser Header */}
-          <div className="h-10 bg-[#1E293B] flex items-center px-4 gap-2 border-b border-slate-700">
-            <div className="flex gap-1.5 opacity-50">
-              <div className="w-3 h-3 rounded-full bg-slate-400"></div>
-              <div className="w-3 h-3 rounded-full bg-slate-400"></div>
-              <div className="w-3 h-3 rounded-full bg-slate-400"></div>
+      {/* VIEW CONTROLLER */}
+      {view === 'privacy' && <LegalPage title="Privacy Policy" lastUpdated="November 1, 2025" content={privacyContent} onBack={() => navigate('home')} />}
+      {view === 'terms' && <LegalPage title="Terms of Service" lastUpdated="October 15, 2025" content={termsContent} onBack={() => navigate('home')} />}
+      
+      {view === 'home' && (
+        <>
+          {/* HERO SECTION */}
+          <header className="relative pt-40 pb-24 px-6 overflow-hidden">
+            <div className="max-w-5xl mx-auto text-center relative z-10">
+              <h1 className="font-serif text-5xl md:text-7xl leading-[1.1] text-[#1E293B] mb-8 tracking-tight">
+                The Operating System for <br/>
+                <span className="text-[#7B8C7D]">Statutory Planning</span>
+              </h1>
+              <p className="font-sans text-xl text-[#64748B] max-w-2xl mx-auto mb-10 leading-relaxed">
+                Orchestrate the end-to-end planning workflow. Statura clears the backlog by combining legislative logic with intelligent process automation.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <Button icon={ArrowRight} onClick={() => window.location.href = 'mailto:sales@statura.com.au'}>Schedule Platform Demo</Button>
+                <Button variant="outline" onClick={() => navigate('privacy')}>View Security Specs</Button>
+              </div>
             </div>
-            <div className="ml-4 px-4 py-1 bg-slate-800 rounded text-xs text-slate-400 font-mono w-96 flex justify-between items-center">
-              <span>app.statura.com.au/workspace/application-042</span>
-              <Lock className="w-3 h-3" />
-            </div>
-          </div>
 
-          {/* Abstract UI Representation */}
-          <div className="grid md:grid-cols-12 h-[600px] bg-slate-50">
-            {/* Left Sidebar - Navigation */}
-            <div className="hidden md:block col-span-2 bg-[#7B8C7D] p-4 text-white/90">
-               <div className="h-8 w-3/4 bg-white/20 rounded mb-8"></div>
-               <div className="space-y-4">
-                 {[1,2,3,4,5].map(i => (
-                   <div key={i} className="flex items-center gap-3 opacity-70">
-                     <div className="w-5 h-5 bg-white/30 rounded"></div>
-                     <div className="h-2 w-20 bg-white/30 rounded"></div>
-                   </div>
+            {/* Background Ambience */}
+            <div className="absolute top-0 left-0 w-full h-full -z-10 overflow-hidden pointer-events-none">
+               <div className="absolute -top-[10%] right-[10%] w-[500px] h-[500px] bg-[#96A998]/10 rounded-full blur-[100px]"></div>
+               <div className="absolute bottom-[0%] left-[10%] w-[600px] h-[600px] bg-[#7B8C7D]/10 rounded-full blur-[100px]"></div>
+            </div>
+          </header>
+
+          {/* SOCIAL PROOF */}
+          <section className="border-y border-slate-200 bg-white py-10 overflow-hidden">
+             <div className="max-w-7xl mx-auto px-6 text-center">
+               <p className="text-xs font-bold text-[#64748B] uppercase tracking-widest mb-6">Engineered for Council Compliance</p>
+               <div className="flex flex-wrap justify-center gap-12 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
+                 {/* Styled text as placeholder logos */}
+                 <div className="font-serif text-xl font-bold text-slate-500 flex items-center gap-2"><MapIcon className="w-5 h-5"/>Metro Council</div>
+                 <div className="font-serif text-xl font-bold text-slate-500 flex items-center gap-2"><MapIcon className="w-5 h-5"/>Regional Shire</div>
+                 <div className="font-serif text-xl font-bold text-slate-500 flex items-center gap-2"><MapIcon className="w-5 h-5"/>City Planning</div>
+               </div>
+             </div>
+          </section>
+
+          {/* FEATURE 1: WORKSPACE (With Synthetic Screenshot) */}
+          <section className="py-24 px-6">
+            <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
+              <div>
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#96A998]/10 text-[#7B8C7D] font-bold text-xs mb-6 uppercase tracking-wide">
+                  The Planner's IDE
+                </div>
+                <h2 className="font-serif text-4xl text-[#1E293B] mb-6">Focus on decisions, not document management.</h2>
+                <p className="text-[#64748B] text-lg mb-8">
+                  The Statura Workspace integrates your document viewer, GIS layers, and assessment checklist into a single, unified view. No more dual-monitor shuffling.
+                </p>
+                <ul className="space-y-4">
+                  {[
+                    "Split-View Architecture: Assessment & Evidence side-by-side.",
+                    "Dynamic RFI Drafting: One-click generation based on checklist gaps.",
+                    "Live GIS Overlay: Contextual spatial data without leaving the application."
+                  ].map((item, i) => (
+                    <li key={i} className="flex gap-3">
+                      <CheckCircle className="w-6 h-6 text-[#96A998] flex-shrink-0" />
+                      <span className="text-[#1E293B]">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              
+              {/* SYNTHETIC SCREENSHOT */}
+              <div className="relative group">
+                <div className="absolute inset-0 bg-slate-200 transform translate-x-4 translate-y-4 rounded-xl -z-10"></div>
+                <WorkspaceMockup />
+              </div>
+            </div>
+          </section>
+
+          {/* ARCHITECTURE (Three Brains) */}
+          <section className="py-24 px-6 bg-[#1E293B] text-white">
+            <div className="max-w-7xl mx-auto">
+              <div className="text-center mb-16 max-w-3xl mx-auto">
+                <h2 className="font-serif text-4xl mb-6">The "Three-Brains" Architecture</h2>
+                <p className="text-slate-300 text-lg">
+                  We solve the "Black Box" problem in Legal AI by separating rigid legislative logic from creative reasoning.
+                </p>
+              </div>
+              <div className="grid md:grid-cols-3 gap-8">
+                <div className="bg-white/5 p-8 rounded-xl border border-white/10 hover:bg-white/10 transition-colors">
+                  <Scale className="w-10 h-10 text-[#96A998] mb-6" />
+                  <h3 className="font-serif text-2xl mb-3">Legislative Brain</h3>
+                  <p className="text-slate-400">Deterministic rules for numeric standards (ResCode). Zero hallucination. If the setback is 4m, Statura knows it's 4m.</p>
+                </div>
+                <div className="bg-white/5 p-8 rounded-xl border border-white/10 hover:bg-white/10 transition-colors">
+                  <Database className="w-10 h-10 text-[#96A998] mb-6" />
+                  <h3 className="font-serif text-2xl mb-3">Archive Brain</h3>
+                  <p className="text-slate-400">Vector database retrieval of relevant VCAT precedents and past council decisions to ensure consistency.</p>
+                </div>
+                <div className="bg-white/5 p-8 rounded-xl border border-white/10 hover:bg-white/10 transition-colors">
+                  <Brain className="w-10 h-10 text-[#96A998] mb-6" />
+                  <h3 className="font-serif text-2xl mb-3">Intake Brain</h3>
+                  <p className="text-slate-400">LLM-powered reasoning for unstructured text extraction, turning messy PDF applications into structured data.</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* FEATURE 2: INTAKE & AUTOMATION */}
+          <section className="py-24 px-6 bg-[#F8FAFC]">
+            <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
+              {/* SYNTHETIC SCREENSHOT */}
+              <div className="order-2 lg:order-1 relative group">
+                 <div className="absolute inset-0 bg-[#96A998]/20 transform -translate-x-4 translate-y-4 rounded-xl -z-10"></div>
+                 <DashboardMockup />
+              </div>
+
+              <div className="order-1 lg:order-2">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#1E293B] text-white font-bold text-xs mb-6 uppercase tracking-wide">
+                  Intelligent Intake
+                </div>
+                <h2 className="font-serif text-4xl text-[#1E293B] mb-6">Stop manual data entry.</h2>
+                <p className="text-[#64748B] text-lg mb-8">
+                  Statura processes incoming applications instantly. Our Intake Brain reads the PDFs, extracts the key metrics, and pre-populates the assessment module before a planner even opens the file.
+                </p>
+                <div className="grid grid-cols-2 gap-6">
+                  <div className="p-4 bg-white border border-slate-200 rounded-lg shadow-sm">
+                    <div className="text-3xl font-bold text-[#7B8C7D] mb-1">85%</div>
+                    <div className="text-sm text-[#64748B]">Reduction in Admin Time</div>
+                  </div>
+                  <div className="p-4 bg-white border border-slate-200 rounded-lg shadow-sm">
+                    <div className="text-3xl font-bold text-[#7B8C7D] mb-1">0%</div>
+                    <div className="text-sm text-[#64748B]">Data Hallucination on Hard Rules</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* SECURITY & TRUST */}
+          <section className="py-20 px-6 bg-white border-t border-slate-100">
+             <div className="max-w-4xl mx-auto text-center">
+               <Shield className="w-12 h-12 text-[#1E293B] mx-auto mb-6" />
+               <h2 className="font-serif text-3xl text-[#1E293B] mb-6">Sovereign. Secure. Compliant.</h2>
+               <p className="text-[#64748B] mb-8">
+                 Built on Australian-hosted infrastructure to meet the strict data sovereignty requirements of Local Government.
+               </p>
+               <div className="flex flex-wrap justify-center gap-4">
+                 {["Data Hosted in Sydney (AWS/Supabase)", "Role-Based Access Control", "End-to-End Encryption", "Automated Audit Logs"].map((badge, i) => (
+                   <span key={i} className="px-4 py-2 bg-slate-50 border border-slate-200 rounded-md text-sm font-medium text-slate-600">
+                     {badge}
+                   </span>
                  ))}
                </div>
-            </div>
-            
-            {/* Center - Document/Map Area */}
-            <div className="col-span-12 md:col-span-6 p-6 border-r border-slate-200 bg-white relative">
-               <div className="absolute top-6 right-6 flex gap-2">
-                 <span className="px-2 py-1 bg-slate-100 text-xs font-bold text-slate-500 rounded">PDF</span>
-                 <span className="px-2 py-1 bg-[#96A998] text-xs font-bold text-white rounded">GIS LAYER</span>
-               </div>
-               <div className="h-full border-2 border-dashed border-slate-200 rounded-lg flex items-center justify-center bg-slate-50">
-                  <div className="text-center">
-                    <Map className="w-12 h-12 text-slate-300 mx-auto mb-2" />
-                    <span className="text-slate-400 font-serif italic">Interactive Document & GIS Canvas</span>
-                  </div>
-               </div>
-            </div>
+             </div>
+          </section>
 
-            {/* Right - AI Copilot & Checklist */}
-            <div className="col-span-12 md:col-span-4 p-6 bg-slate-50 flex flex-col gap-4">
-               <div className="bg-white p-4 rounded-lg shadow-sm border border-slate-200">
-                 <div className="flex items-center gap-2 mb-3">
-                   <Brain className="w-5 h-5 text-[#7B8C7D]" />
-                   <h4 className="font-bold text-[#1E293B]">Statura Copilot</h4>
-                 </div>
-                 <p className="text-sm text-[#64748B] leading-relaxed">
-                   Based on <span className="text-[#1E293B] font-semibold">ResCode B1</span>, the street setback is 4.5m, which complies with the neighbourhood character standard.
-                 </p>
-                 <div className="mt-3 flex gap-2">
-                   <span className="px-2 py-1 bg-green-100 text-green-700 text-xs font-bold rounded">COMPLIANT</span>
-                   <span className="px-2 py-1 bg-slate-100 text-slate-600 text-xs font-bold rounded">CONFIDENCE: 99%</span>
-                 </div>
-               </div>
-
-               <div className="bg-white p-4 rounded-lg shadow-sm border border-slate-200 flex-1">
-                 <h4 className="font-bold text-[#1E293B] mb-4">Assessment Checklist</h4>
-                 <div className="space-y-3">
-                   {['Street Setback', 'Site Coverage', 'Permeability', 'Garden Area', 'Wall Height'].map((item, i) => (
-                     <div key={i} className="flex items-center justify-between p-2 hover:bg-slate-50 rounded cursor-pointer group">
-                       <div className="flex items-center gap-3">
-                         <div className={`w-5 h-5 rounded border flex items-center justify-center ${i < 3 ? 'bg-[#96A998] border-[#96A998] text-white' : 'border-slate-300'}`}>
-                           {i < 3 && <CheckCircle className="w-3.5 h-3.5" />}
-                         </div>
-                         <span className="text-sm font-medium text-slate-700">{item}</span>
-                       </div>
-                       <ChevronRight className="w-4 h-4 text-slate-300 group-hover:text-slate-500" />
-                     </div>
-                   ))}
-                 </div>
-               </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* THREE BRAINS ARCHITECTURE */}
-      <section id="brains" className="py-24 px-6 bg-white">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16 max-w-3xl mx-auto">
-            <h2 className="font-serif text-4xl text-[#1E293B] mb-6">The "Three-Brains" Architecture</h2>
-            <p className="text-[#64748B] text-lg">
-              Statura is built to solve the "Black Box" problem in Legal AI. We separate rigid legislative logic from creative reasoning to ensure 100% auditability.
-            </p>
-          </div>
-          
-          <div className="grid md:grid-cols-3 gap-8">
-            <FeatureCard 
-              title="Legislative Brain" 
-              desc="The 'Hard Logic'. Deterministic TypeScript rules handle numeric standards (ResCode, height limits). Zero hallucination. If the setback is 4m, Statura knows it's 4m."
-              icon={Scale}
-            />
-            <FeatureCard 
-              title="Archive Brain" 
-              desc="The 'Memory'. A Vector database that instantly retrieves relevant VCAT precedents and past council decisions to support consistency in decision making."
-              icon={Database}
-            />
-            <FeatureCard 
-              title="Intake Brain" 
-              desc="The 'Reasoning'. GPT-4o powers unstructured text extraction from PDFs and qualitative reasoning, transforming messy applications into structured data."
-              icon={Brain}
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* APPLICANT PORTAL SECTION */}
-      <section id="portal" className="py-24 px-6 bg-[#1E293B] text-white">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="font-serif text-4xl mb-6">Stop the "What's the status?" Phone Calls.</h2>
-          <p className="text-slate-300 text-lg mb-12">
-            The Statura Applicant Portal gives homeowners and developers a live, "Domino's Pizza Tracker" style view of their permit application.
-          </p>
-          
-          <div className="flex flex-wrap justify-center gap-4 md:gap-8">
-            {[
-              { label: 'Received', icon: FileText, active: true },
-              { label: 'Referral', icon: Users, active: true },
-              { label: 'Assessment', icon: ShieldCheck, active: true, pulse: true },
-              { label: 'Decision', icon: CheckCircle, active: false }
-            ].map((step, i) => (
-              <div key={i} className={`flex flex-col items-center gap-4 ${step.active ? 'opacity-100' : 'opacity-40'}`}>
-                <div className={`w-16 h-16 rounded-full border-2 flex items-center justify-center relative ${step.active ? 'bg-white/10 border-[#96A998] text-[#96A998]' : 'border-slate-600 text-slate-600'}`}>
-                  <step.icon className="w-8 h-8" />
-                  {step.pulse && <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-400 rounded-full animate-pulse border-2 border-[#1E293B]"></span>}
-                </div>
-                <span className="font-bold text-sm tracking-wide">{step.label}</span>
+          {/* CTA */}
+          <section className="py-24 px-6 bg-[#7B8C7D]">
+            <div className="max-w-4xl mx-auto text-center text-white">
+              <h2 className="font-serif text-4xl md:text-5xl mb-8">Ready to modernize your Planning Department?</h2>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <button onClick={() => window.location.href = 'mailto:sales@statura.com.au'} className="bg-[#1E293B] text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-slate-900 transition-colors shadow-xl">
+                  Contact Sales
+                </button>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA SECTION */}
-      <section className="py-24 px-6 bg-[#F8FAFC] border-t border-slate-200">
-        <div className="max-w-5xl mx-auto bg-[#7B8C7D] rounded-2xl p-12 text-center text-white shadow-xl relative overflow-hidden">
-          <div className="relative z-10">
-            <h2 className="font-serif text-3xl md:text-5xl mb-6">Ready to clear the backlog?</h2>
-            <p className="text-white/80 text-lg mb-8 max-w-2xl mx-auto">
-              Join the Councils using Statura to reduce clock days and retain happy planners.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button onClick={() => setShowDemoModal(true)} className="bg-white text-[#1E293B] px-8 py-4 rounded-lg font-bold text-lg hover:bg-slate-100 transition-colors shadow-lg">
-                Book a Demo
-              </button>
-              <button onClick={openApp} className="border-2 border-white text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-white/10 transition-colors">
-                View Live Pilot
-              </button>
+              <p className="mt-6 text-white/70 text-sm">
+                Statura is currently onboarding Victorian Councils for FY26.
+              </p>
             </div>
-          </div>
-          {/* Decorative Pattern */}
-          <div className="absolute top-0 right-0 -mr-20 -mt-20 w-80 h-80 bg-white/10 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 bg-[#1E293B]/20 rounded-full blur-3xl"></div>
-        </div>
-      </section>
+          </section>
+        </>
+      )}
 
       {/* FOOTER */}
-      <footer className="bg-white text-slate-500 py-16 px-6 border-t border-slate-200">
+      <footer className="bg-white text-slate-500 py-12 px-6 border-t border-slate-200">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
           <div className="text-center md:text-left">
-            <StaturaLogo className="h-8 mb-4 opacity-100" />
-            <p className="text-sm">
-              &copy; 2025 Statura Pty Ltd. <br/>
-              Melbourne, Victoria.
-            </p>
+            <StaturaLogo className="h-8 mb-4" onClick={() => navigate('home')} />
+            <p className="text-sm">&copy; 2025 Statura Pty Ltd. Melbourne, Victoria.</p>
           </div>
           <div className="flex gap-8 text-sm font-medium text-[#1E293B]">
-            <a href="#" className="hover:text-[#7B8C7D]">Privacy Policy</a>
-            <a href="#" className="hover:text-[#7B8C7D]">Terms of Service</a>
-            <a href="mailto:hello@statura.com.au" className="hover:text-[#7B8C7D]">Contact</a>
+            <button onClick={() => navigate('privacy')} className="hover:text-[#7B8C7D]">Privacy Policy</button>
+            <button onClick={() => navigate('terms')} className="hover:text-[#7B8C7D]">Terms of Service</button>
+            <a href="mailto:hello@statura.com.au" className="hover:text-[#7B8C7D]">Contact Support</a>
           </div>
         </div>
       </footer>
-
-      {/* MODALS */}
-      
-      {/* Demo Booking Modal */}
-      <Modal 
-        isOpen={showDemoModal} 
-        onClose={() => setShowDemoModal(false)}
-        title="Schedule a Statura Demo"
-      >
-        <div className="space-y-4">
-          <p className="text-slate-600 mb-4">Leave your details and our team will coordinate a walkthrough of the V13 Gold Master environment.</p>
-          <input type="text" placeholder="Full Name" className="w-full p-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#7B8C7D] outline-none" />
-          <input type="email" placeholder="Council / Organization Email" className="w-full p-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#7B8C7D] outline-none" />
-          <button className="w-full bg-[#1E293B] text-white py-3 rounded-lg font-bold hover:bg-[#7B8C7D] transition-colors">
-            Request Invite
-          </button>
-          <p className="text-xs text-slate-400 text-center mt-2">We typically respond within 2 hours.</p>
-        </div>
-      </Modal>
-
-      {/* Investor Login Modal */}
-      <Modal 
-        isOpen={showInvestorModal} 
-        onClose={() => setShowInvestorModal(false)}
-        title="Investor Access"
-      >
-        <div className="space-y-4">
-          <div className="bg-amber-50 text-amber-800 p-3 rounded-md text-sm mb-4 border border-amber-200">
-             <strong>Note:</strong> Data Room access is restricted to authorized partners.
-          </div>
-          <input type="email" placeholder="Email Address" className="w-full p-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#7B8C7D] outline-none" />
-          <input type="password" placeholder="Access Code" className="w-full p-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#7B8C7D] outline-none" />
-          <button className="w-full bg-[#1E293B] text-white py-3 rounded-lg font-bold hover:bg-[#7B8C7D] transition-colors">
-            Enter Data Room
-          </button>
-        </div>
-      </Modal>
-
     </div>
   );
 }
