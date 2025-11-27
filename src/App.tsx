@@ -110,7 +110,7 @@ const WorkspaceMockup = () => (
                   <span className="text-xs font-bold">Statura Copilot</span>
                 </div>
                 <p className="text-[10px] text-slate-300 leading-snug">
-                  I've detected a Front Fence >1.5m. This triggers a Regulation 42 assessment.
+                  I've detected a Front Fence &gt;1.5m. This triggers a Regulation 42 assessment.
                 </p>
              </div>
           </div>
